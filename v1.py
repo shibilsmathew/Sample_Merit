@@ -6,6 +6,7 @@ class Task:
         self.description = description
 
 class TaskTracker:
+
     def __init__(self):
         self.tasks = []
         self.dict = {}
@@ -15,8 +16,8 @@ class TaskTracker:
         self.tasks.append(task)
 
 def main():
-
-    task_tracker = TaskTracker()
+    
+    task_manager = TaskManager()
 
 if __name__ == "__main__":
 
@@ -40,18 +41,14 @@ if __name__ == "__main__":
 
         elif choice == '2':
             pass
-
-        elif choice == '3':
+        elif choice == "3":
             pass
-
-        elif choice == '4':
+        elif choice == "4":
             pass
-
-        elif choice == '5':
+        elif choice == "5":
             pass
-
         else:
-            print("Invalid choice. Please enter a number between 1 and 6.")
+            print("Invalid choice. Please enter a valid option.")
 
 if __name__ == "__main__":
     main()

@@ -6,32 +6,34 @@ class Task:
 class TaskTracker:
     pass
 def main():
-    task_manager = TaskManager("tasks.xlsx")
+    
+    task_manager = TaskManager()
+
+if __name__ == "__main__":
+
+    task_tracker = TaskTracker()
 
     while True:
-        print("\nTask Manager Menu:")
+        print("\nTask Tracker Menu:")
         print("1. Add Task")
-        print("2. Display Tasks")
-        print("3. Mark Task as Done")
-        print("4. Delete Task")
-        print("5. Quit")
+        print("2. Schedule Task")
+        print("3. Delete Task")
+        print("4. List Tasks")
+        print("5. List Task with Schedules")
+        print("6. Exit")
 
         choice = input("Enter your choice: ")
 
         if choice == "1":
-            title = input("Enter task title: ")
-            task_manager.add_task(title)
+            pass
         elif choice == "2":
-            task_manager.display_tasks()
+            pass
         elif choice == "3":
-            task_number = int(input("Enter the task number to mark as done: "))
-            time_taken = int(input("Enter the time taken for the task in minutes: "))
-            task_manager.mark_task_done(task_number, time_taken)
+            pass
         elif choice == "4":
-            task_number = int(input("Enter the task number to delete: "))
-            task_manager.delete_task(task_number)
+            pass
         elif choice == "5":
-            break
+            pass
         else:
             print("Invalid choice. Please enter a valid option.")
 

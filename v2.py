@@ -4,7 +4,16 @@ class Task:
     pass
 
 class TaskTracker:
-    pass
+    def task_deletion(self):
+        self.list_tasks()
+        task_select = int(input("Select the task you want to delete: "))
+        try:
+            del self.tasks[task_select-1]
+            if task_select-1 in self.dict:
+                del self.dict[task_select-1]
+            a = 0
+        except:
+            print("Enter a valid input")
 
 def main():
 
@@ -32,7 +41,7 @@ if __name__ == "__main__":
             pass
 
         elif choice == '3':
-            pass
+            task_tracker.delete_task(task_number)
 
         elif choice == '4':
             pass

@@ -2,11 +2,14 @@ import sys
 import datetime
 
 class Task:
-    def __init__(self, name, description):
+    def __init__(self,name,description):
         self.name = name
         self.description = description
 
+
+
 class TaskTracker:
+
 
     def list_tasks(self):
     i = 1
@@ -51,6 +54,21 @@ class TaskTracker:
     def add_task(self, name, description):
         task = Task(name, description)
         self.tasks.append(task)
+        
+
+    def save_tasks(self):
+        """
+        save tasks into an excel file
+        """
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.append(["Task", "Status", "Finish Time"])
+        i = 0
+        for task in self.tasks:
+            ws.append([task.name, self.dict[i]["Status"], self.dict[i]["Completion_time"]])
+            i+=1
+        wb.save(self.file_name)   
+
 
 def main():
     

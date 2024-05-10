@@ -1,44 +1,78 @@
 import sys
+import datetime
 
 class Task:
-    pass
+    def __init__(self,name,description):
+        self.name = name
+        self.description = description
+
+
+
 class TaskTracker:
 
-        def save_tasks(self):
-            """
-            save tasks into an excel file
-            """
-            wb = openpyxl.Workbook()
-            ws = wb.active
-            ws.append(["Task", "Status", "Time Taken", "Finish Time"])
-            for task in self.tasks:
-            ws.append([task.title, task.status, task.time_taken, task.finish_time])
-            wb.save(self.file_name)
 
-    
-        def load_tasks(self):
-            """
-            load tasks from an excel file
-            """
-        try:
-            wb = openpyxl.load_workbook(self.file_name)
-            ws = wb.active
-            tasks = []
-            for row in ws.iter_rows(values_only=True):
-                title = row[0]
-                status = row[1]
-                time_taken = row[2]
-                finish_time = row[3]
-                tasks.append(Task(title, status, time_taken, finish_time))
-            wb.close()
-            return tasks
-        except FileNotFoundError:
-            return []
-            
+    def list_tasks(self):
+    i = 1
+       print("---------------------------------------------------------")
+    for each_task in self.tasks:
+        print(i,each_task.name)
+        print('----Description:',each_task.description)
+        if i-1 in self.dict:
+            print("Status:",self.dict[i-1]["Status"])
+        else :
+            print("Status:","Incomplete")
+        i+=1
+    print("---------------------------------------------------------")
+
+    def task_schedule(self):
+
+        self.list_tasks()
+        task_select = int(input("Enter the task you want to schedule: "))
+        user_status = input("Enter your progress (Incompleted / In progress / Completed): ")
+        minutes = int(input("Enter end task time (minutes): "))
+
+        current_time = datetime.datetime.now()
+        future_time = current_time + datetime.timedelta(minutes=minutes)
+
+        self.dict[task_select-1] = {"Status":user_status,
+                                    "Completion_time":future_time}
+        
+    def list_tasks_with_schedule(self):
+        self.list_tasks()
+        task_select = int(input("Enter the task you want to refer: "))
+        if task_select-1 in self.dict:
+            print('--',self.tasks[task_select-1].name)
+            print("Status:",self.dict[task_select-1]["Status"])
+            print("Expected Task Completion date and time:",self.dict[task_select-1]["Completion_time"])
+        else:
+            print("No schedule has been provided for this task")
+
+    def __init__(self):
+        self.tasks = []
+        self.dict = {}
+
+    def add_task(self, name, description):
+        task = Task(name, description)
+        self.tasks.append(task)
+        
+
+    def save_tasks(self):
+        """
+        save tasks into an excel file
+        """
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.append(["Task", "Status", "Finish Time"])
+        i = 0
+        for task in self.tasks:
+            ws.append([task.name, self.dict[i]["Status"], self.dict[i]["Completion_time"]])
+            i+=1
+        wb.save(self.file_name)   
+
 
 def main():
-
-    task_tracker = TaskTracker()
+    
+    task_manager = TaskManager()
 
 if __name__ == "__main__":
 
@@ -56,22 +90,27 @@ if __name__ == "__main__":
         choice = input("Enter your choice: ")
 
         if choice == '1':
-            pass
+            name = input("Enter task name: ")
+            description = input("Enter task description: ")
+            task_tracker.add_task(name, description)
 
         elif choice == '2':
-            pass
+            task_tracker.task_schedule()
 
-        elif choice == '3':
+        elif choice == "3":
             pass
 
         elif choice == '4':
-            pass
-
+            task_tracker.list_tasks()
+       
         elif choice == '5':
-            pass
+            task_tracker.list_tasks_with_schedule()
+            
+        elif choice == '6':
+            break
 
         else:
-            print("Invalid choice. Please enter a number between 1 and 6.")
+            print("Invalid choice. Please enter a valid option.")
 
 if __name__ == "__main__":
     main()

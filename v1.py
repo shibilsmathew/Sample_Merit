@@ -1,4 +1,5 @@
 import sys
+import datetime
 
 class Task:
     def __init__(self, name, description):
@@ -6,6 +7,29 @@ class Task:
         self.description = description
 
 class TaskTracker:
+
+    def task_schedule(self):
+
+        self.list_tasks()
+        task_select = int(input("Enter the task you want to schedule: "))
+        user_status = input("Enter your progress (Incompleted / In progress / Completed): ")
+        minutes = int(input("Enter end task time (minutes): "))
+
+        current_time = datetime.datetime.now()
+        future_time = current_time + datetime.timedelta(minutes=minutes)
+
+        self.dict[task_select-1] = {"Status":user_status,
+                                    "Completion_time":future_time}
+        
+    def list_tasks_with_schedule(self):
+        self.list_tasks()
+        task_select = int(input("Enter the task you want to refer: "))
+        if task_select-1 in self.dict:
+            print('--',self.tasks[task_select-1].name)
+            print("Status:",self.dict[task_select-1]["Status"])
+            print("Expected Task Completion date and time:",self.dict[task_select-1]["Completion_time"])
+        else:
+            print("No schedule has been provided for this task")
 
     def __init__(self):
         self.tasks = []
@@ -40,13 +64,16 @@ if __name__ == "__main__":
             task_tracker.add_task(name, description)
 
         elif choice == '2':
-            pass
+            task_tracker.task_schedule()
+
         elif choice == "3":
             pass
         elif choice == "4":
             pass
-        elif choice == "5":
-            pass
+
+        elif choice == '5':
+            task_tracker.list_tasks_with_schedule()
+
         else:
             print("Invalid choice. Please enter a valid option.")
 

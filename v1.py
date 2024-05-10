@@ -1,10 +1,18 @@
 import sys
 
 class Task:
-    pass
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
 
 class TaskTracker:
-    pass
+    def __init__(self):
+        self.tasks = []
+        self.dict = {}
+
+    def add_task(self, name, description):
+        task = Task(name, description)
+        self.tasks.append(task)
 
 def main():
 
@@ -26,7 +34,9 @@ if __name__ == "__main__":
         choice = input("Enter your choice: ")
 
         if choice == '1':
-            pass
+            name = input("Enter task name: ")
+            description = input("Enter task description: ")
+            task_tracker.add_task(name, description)
 
         elif choice == '2':
             pass

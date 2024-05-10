@@ -1,5 +1,6 @@
 import sys
 import datetime
+import openpyxl
 
 class Task:
     def __init__(self,name,description):
@@ -12,17 +13,17 @@ class TaskTracker:
 
 
     def list_tasks(self):
-    i = 1
-       print("---------------------------------------------------------")
-    for each_task in self.tasks:
-        print(i,each_task.name)
-        print('----Description:',each_task.description)
-        if i-1 in self.dict:
-            print("Status:",self.dict[i-1]["Status"])
-        else :
-            print("Status:","Incomplete")
-        i+=1
-    print("---------------------------------------------------------")
+        i = 1
+        print("---------------------------------------------------------")
+        for each_task in self.tasks:
+            print(i,each_task.name)
+            print('----Description:',each_task.description)
+            if i-1 in self.dict:
+                print("Status:",self.dict[i-1]["Status"])
+            else :
+                print("Status:","Incomplete")
+            i+=1
+        print("---------------------------------------------------------")
 
     def task_schedule(self):
 
@@ -69,10 +70,15 @@ class TaskTracker:
             i+=1
         wb.save(self.file_name)   
 
-
-def main():
-    
-    task_manager = TaskManager()
+    def task_deletion(self):
+        self.list_tasks()
+        task_select = int(input("Select the task you want to delete: "))
+        try:
+            del self.tasks[task_select-1]
+            if task_select-1 in self.dict:
+                del self.dict[task_select-1]
+        except:
+            print("Enter a valid input")
 
 if __name__ == "__main__":
 
@@ -98,7 +104,7 @@ if __name__ == "__main__":
             task_tracker.task_schedule()
 
         elif choice == "3":
-            pass
+            task_tracker.task_deletion()
 
         elif choice == '4':
             task_tracker.list_tasks()
@@ -112,5 +118,3 @@ if __name__ == "__main__":
         else:
             print("Invalid choice. Please enter a valid option.")
 
-if __name__ == "__main__":
-    main()

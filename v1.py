@@ -3,6 +3,7 @@ import datetime
 import openpyxl
 
 class Task:
+    #Contructer for Task class
     def __init__(self,name,description):
         self.name = name
         self.description = description
@@ -11,7 +12,9 @@ class Task:
 
 class TaskTracker:
 
-
+    '''
+    return : Displays all the task
+    '''
     def list_tasks(self):
         i = 1
         print("---------------------------------------------------------")
@@ -25,6 +28,7 @@ class TaskTracker:
             i+=1
         print("---------------------------------------------------------")
 
+    
     def task_schedule(self):
 
         self.list_tasks()

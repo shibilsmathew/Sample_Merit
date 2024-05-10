@@ -1,8 +1,11 @@
 import sys
 import datetime
-import openpyxl
+import openpyxl # for working with .xlsx file
 
 class Task:
+    '''
+    constructor which initializes instances 
+    '''
     def __init__(self,name,description):
         self.name = name
         self.description = description
@@ -10,9 +13,14 @@ class Task:
 
 
 class TaskTracker:
-
-
+    '''
+    stores all the features of the task  management app
+    '''
     def list_tasks(self):
+        '''
+        function: all the tasks are displayed
+        returns: list of tasks
+        '''
         i = 1
         print("---------------------------------------------------------")
         for each_task in self.tasks:
@@ -26,11 +34,14 @@ class TaskTracker:
         print("---------------------------------------------------------")
 
     def task_schedule(self):
-
+        '''
+        function: tracks the progress of the task, asks user how much time certain task will take
+        returns: current progress of the task
+        '''
         self.list_tasks()
         task_select = int(input("Enter the task you want to schedule: "))
         user_status = input("Enter your progress (Incompleted / In progress / Completed): ")
-        minutes = int(input("Enter end task time (minutes): "))
+        minutes = int(input("Enter how long the task is going to take (minutes): "))
 
         current_time = datetime.datetime.now()
         future_time = current_time + datetime.timedelta(minutes=minutes)
@@ -39,6 +50,11 @@ class TaskTracker:
                                     "Completion_time":future_time}
         
     def list_tasks_with_schedule(self):
+        '''
+        function: 
+        params:
+        returns: 
+        '''
         self.list_tasks()
         task_select = int(input("Enter the task you want to refer: "))
         if task_select-1 in self.dict:
@@ -53,13 +69,17 @@ class TaskTracker:
         self.dict = {}
 
     def add_task(self, name, description):
+        '''
+        function: adds task to the list named 'task'
+        params: name and description of the task
+        '''
         task = Task(name, description)
         self.tasks.append(task)
         
 
     def save_tasks(self):
         """
-        save tasks into an excel file
+        function: save tasks into an excel file
         """
         wb = openpyxl.Workbook()
         ws = wb.active
@@ -71,6 +91,9 @@ class TaskTracker:
         wb.save(self.file_name)   
 
     def task_deletion(self):
+        '''
+        function: deletes a certain task from the excel file
+        '''
         self.list_tasks()
         task_select = int(input("Select the task you want to delete: "))
         try:
@@ -95,24 +118,24 @@ if __name__ == "__main__":
 
         choice = input("Enter your choice: ")
 
-        if choice == '1':
+        if choice == '1': # for adding tasks
             name = input("Enter task name: ")
             description = input("Enter task description: ")
             task_tracker.add_task(name, description)
 
-        elif choice == '2':
+        elif choice == '2': # for scheduling tasks
             task_tracker.task_schedule()
 
-        elif choice == "3":
+        elif choice == "3": # delete tasks
             task_tracker.task_deletion()
 
-        elif choice == '4':
+        elif choice == '4': # listing/displaying tasks
             task_tracker.list_tasks()
        
-        elif choice == '5':
+        elif choice == '5': # list task with schedule
             task_tracker.list_tasks_with_schedule()
             
-        elif choice == '6':
+        elif choice == '6': # exit
             break
 
         else:

@@ -2,9 +2,39 @@ import sys
 
 class Task:
     pass
-
 class TaskTracker:
-    pass
+
+        def save_tasks(self):
+            """
+            save tasks into an excel file
+            """
+            wb = openpyxl.Workbook()
+            ws = wb.active
+            ws.append(["Task", "Status", "Time Taken", "Finish Time"])
+            for task in self.tasks:
+            ws.append([task.title, task.status, task.time_taken, task.finish_time])
+            wb.save(self.file_name)
+
+    
+        def load_tasks(self):
+            """
+            load tasks from an excel file
+            """
+        try:
+            wb = openpyxl.load_workbook(self.file_name)
+            ws = wb.active
+            tasks = []
+            for row in ws.iter_rows(values_only=True):
+                title = row[0]
+                status = row[1]
+                time_taken = row[2]
+                finish_time = row[3]
+                tasks.append(Task(title, status, time_taken, finish_time))
+            wb.close()
+            return tasks
+        except FileNotFoundError:
+            return []
+            
 
 def main():
 

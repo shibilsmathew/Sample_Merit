@@ -8,6 +8,19 @@ class Task:
 
 class TaskTracker:
 
+    def list_tasks(self):
+    i = 1
+       print("---------------------------------------------------------")
+    for each_task in self.tasks:
+        print(i,each_task.name)
+        print('----Description:',each_task.description)
+        if i-1 in self.dict:
+            print("Status:",self.dict[i-1]["Status"])
+        else :
+            print("Status:","Incomplete")
+        i+=1
+    print("---------------------------------------------------------")
+
     def task_schedule(self):
 
         self.list_tasks()
@@ -68,11 +81,15 @@ if __name__ == "__main__":
 
         elif choice == "3":
             pass
-        elif choice == "4":
-            pass
 
+        elif choice == '4':
+            task_tracker.list_tasks()
+       
         elif choice == '5':
             task_tracker.list_tasks_with_schedule()
+            
+        elif choice == '6':
+            break
 
         else:
             print("Invalid choice. Please enter a valid option.")

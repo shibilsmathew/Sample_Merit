@@ -4,7 +4,18 @@ class Task:
     pass
 
 class TaskTracker:
-    pass
+    def list_tasks(self):
+    i = 1
+       print("---------------------------------------------------------")
+    for each_task in self.tasks:
+        print(i,each_task.name)
+        print('----Description:',each_task.description)
+        if i-1 in self.dict:
+            print("Status:",self.dict[i-1]["Status"])
+        else :
+            print("Status:","Incomplete")
+        i+=1
+    print("---------------------------------------------------------")
 
 def main():
 
@@ -35,10 +46,13 @@ if __name__ == "__main__":
             pass
 
         elif choice == '4':
-            pass
+            task_tracker.list_tasks()
 
         elif choice == '5':
             pass
+        
+        elif choice == '6':
+            break
 
         else:
             print("Invalid choice. Please enter a number between 1 and 6.")
